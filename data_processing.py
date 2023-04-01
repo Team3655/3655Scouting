@@ -71,6 +71,10 @@ def get_filter_df(df):
 
 
 def pre_processing(df, save, year):
+    text_file = open("sample.txt", "w")
+    n = text_file.write(str(df.iloc[0]['score_breakdown']))
+    text_file.close()
+    assert False
     alliances_df = pd.json_normalize(df['alliances'])
     score_df = get_score_df(df)
     videos_df = get_videos_df(df)
