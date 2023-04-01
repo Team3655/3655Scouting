@@ -130,29 +130,6 @@ def get_team_score_prob(analyze_teams, df):
     return team_score_prob
 
 
-def save_depict_team_scores(team_score_prob):
-    for var_team in team_score_prob:
-        var_team_data = team_score_prob[var_team]
-        for var_perspective in var_team_data:
-            var_driver = var_perspective.split("|")[0]
-            var_element = var_perspective.split("|")[1]
-            if var_element == "Cone":
-                color_scheme = "light:#F9C70C"
-            else:
-                color_scheme = "light:#710193"
-            var_heatmap_data = np.array((var_team_data[var_perspective]))
-            fig, ax = plt.subplots(figsize=(15, 15))
-            plt.title(f"{var_team} - {var_driver} {var_element} Heatmap")
-            sns.heatmap(var_heatmap_data, square=True, ax=ax,
-                        annot=True, linewidth=.5, vmin=0,
-                        vmax=1, cmap=sns.color_palette(color_scheme, as_cmap=True))
-            plt.yticks(rotation=0, fontsize=16)
-            plt.xticks(fontsize=12)
-            plt.tight_layout()
-            plt.savefig(f"{var_team}_{var_driver}_{var_element}")
-    return
-
-
 def depict_team_scores(team_score_prob):
     driver_to_index = {"autoCommunity": 0, "teleopCommunity": 1}
     element_to_index = {"Cone": 0, "Cube": 1}
