@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from api_get_event_teams import get_teams_at_event
 
 
 def fix_json_column(df, column_name):
@@ -131,8 +132,10 @@ def get_team_score_prob(analyze_teams, df):
 
 
 def depict_team_scores(team_score_prob):
+    print("/t Creating figures...")
     driver_to_index = {"autoCommunity": 0, "teleopCommunity": 1}
     element_to_index = {"Cone": 0, "Cube": 1}
+    count = 0
     for var_team in team_score_prob:
         fig, axs = plt.subplots(2, 2, figsize=(15, 15))
         var_team_data = team_score_prob[var_team]
@@ -154,6 +157,10 @@ def depict_team_scores(team_score_prob):
             plt.xticks(fontsize=12)
             plt.tight_layout()
         plt.savefig(f"./score_images/{var_team}")
+        plt.close()
+        count += 1
+        if count % 10 == 0:
+            print(f"/t/t Figure count = {count}")
     return
 
 
@@ -166,7 +173,13 @@ def get_score_locations(analyze_teams, file_name, verbose):
 
 def main():
     # hyper parameters
-    analyze_teams = ["frc3655", "frc8424"]
+    #analyze_teams = ["frc3655", "frc8424"]
+    headers = {
+        'User-Agent': "3655scouting",
+        'From': "scoutingTractor3655@gmail.com",
+        'X-TBA-Auth-Key': "QQEfWdunQpMgnapxMGoWwY3a76vTtU4n2NCq3hFLxYak95HkR0yGq5Xh2iWSERnq"
+    }
+    analyze_teams = get_teams_at_event("https://www.thebluealliance.com/api/v3", "2023micmp", headers)
     verbose = True
     year = 2023
 
