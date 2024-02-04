@@ -45,12 +45,13 @@ def save_data(data, verbose):
     print("\tSaving data...")
     for var_year in data:
         var_df = data[var_year]
-        try:
-            var_df.to_parquet(f"raw_data/blue_alliance_{var_year}.parquet.gzip", compression='gzip')
-        except Exception as e:
-            print(f"\t\t{var_year} failed to save: {e}")
-        if verbose:
-            print(f"\t\tSaved blue_alliance_{var_year}.parquet.gzip.")
+        if not var_df.empty:
+            try:
+                var_df.to_parquet(f"raw_data/blue_alliance_{var_year}.parquet.gzip", compression='gzip')
+            except Exception as e:
+                print(f"\t\t{var_year} failed to save: {e}")
+            if verbose:
+                print(f"\t\tSaved blue_alliance_{var_year}.parquet.gzip.")
     return
 
 
