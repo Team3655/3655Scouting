@@ -62,10 +62,6 @@ def getting_data(base_url, end_year, headers, start_year, verbose):
 
 
 def main():
-    #gmail: scoutingTractor3655
-    #password: d4Ta4Sc0ut1ng
-
-
     # https://www.thebluealliance.com/apidocs
 
     # hyper parameters
